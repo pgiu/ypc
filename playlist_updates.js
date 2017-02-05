@@ -13,6 +13,7 @@ function enableForm() {
 
 // Create a private playlist.
 function createPlaylist() {
+    $('#playlist-name').attr('disabled','true');
     var name = $('#playlist-name').val()
     var request = gapi.client.youtube.playlists.insert({
         part: 'snippet,status',
@@ -74,10 +75,33 @@ function addToPlaylist(id, startPos, endPos) {
             }
         }
     });
-    var v = request.execute(function(response) {
+    request.execute(function(response) {
         var title = response.result.snippet.title;
         var img = "<img src=\"" + response.result.snippet.thumbnails.default.url + "\"/>";
         $('#addedVideos').append('<li>' + img + title + '</li>');
+        console.log(JSON.stringify(response.result));
     });
-    console.log(v);
+}
+
+function deletePlaylist(){
+
+    console.log('id'+$('#playlist-id').val());
+    var request = gapi.client.youtube.playlists.delete({
+
+        id: $('#playlist-id').val(),
+    });
+    request.execute(function(response) {
+        var result = response.result;
+        if (result) {
+           console.log("Playlist borrada");
+            $('#playlist-id').val('');
+            $('#playlist-name').attr('disabled','false');
+            alert('Playlist eliminada con exito');
+
+        } else {
+            console.log(result)
+            alert('No se pudo eliminar la playlist');
+        }
+    });
+
 }
