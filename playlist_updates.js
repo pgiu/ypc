@@ -13,7 +13,6 @@ function enableForm() {
 
 // Create a private playlist.
 function createPlaylist() {
-    $('#playlist-name').attr('disabled','true');
     var name = $('#playlist-name').val()
     var request = gapi.client.youtube.playlists.insert({
         part: 'snippet,status',
@@ -23,7 +22,7 @@ function createPlaylist() {
                 description: ''
             },
             status: {
-                privacyStatus: 'private'
+                privacyStatus: 'public'
             }
         }
     });
@@ -44,23 +43,28 @@ function createPlaylist() {
 // Add a video ID specified in the form to the playlist.
 function addVideoToPlaylist() {
     var lines = $('#video-id').val().split('\n');
+    var videosIdArr = [];
+    var k = 0;
 
     for(var i = 0 ; i < lines.length ; i++){
         var video_id = lines[i].split('=');
         if (video_id.length == 2){
             console.log("Adding ("+i+"/"+lines.length+"):"+video_id[1]);
-            addToPlaylist(video_id[1]);
+            videosIdArr[k++]=video_id[1];
         } else {
             console.log("there is more than one =")
         }
-
     }
+
+    // Call the method that does the job!
+    addToPlaylist(videosIdArr,0);
 }
 
 // Add a video to a playlist. The "startPos" and "endPos" values let you
 // start and stop the video at specific times when the video is played as
 // part of the playlist. However, these values are not set in this example.
-function addToPlaylist(id, startPos, endPos) {
+function addToPlaylist(videosIdArray, index) {
+    var id = videosIdArray[index];
     var details = {
         videoId: id,
         kind: 'youtube#video'
@@ -76,10 +80,19 @@ function addToPlaylist(id, startPos, endPos) {
         }
     });
     request.execute(function(response) {
+
         var title = response.result.snippet.title;
         var img = "<img src=\"" + response.result.snippet.thumbnails.default.url + "\"/>";
         $('#addedVideos').append('<li>' + img + title + '</li>');
-        console.log(JSON.stringify(response.result));
+
+        // if we have more to do, we keep calling this function recursively
+        if(videosIdArray.length == index+1){
+            console.log("finished all uploads");
+        } else {
+
+            // Recursive call
+            addToPlaylist(videosIdArray, index+1);
+        }
     });
 }
 
@@ -93,9 +106,9 @@ function deletePlaylist(){
     request.execute(function(response) {
         var result = response.result;
         if (result) {
-           console.log("Playlist borrada");
+            console.log("Playlist borrada");
             $('#playlist-id').val('');
-            $('#playlist-name').attr('disabled','false');
+            $('#addedVideos').val('');
             alert('Playlist eliminada con exito');
 
         } else {

@@ -32,7 +32,5 @@ Prerequisite:
 
 ## To-Do
 
-- Make one call per box (currently one call is sent per video)
 - Translate the UI to english 
-- add a button to set the visibility to Public
-- add a "delete playlist" button 
+
