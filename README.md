@@ -33,4 +33,4 @@ Prerequisite:
 ## To-Do
 
 - Translate the UI to english 
-
+- fix bug old videos not being erased when playlist is deleted
