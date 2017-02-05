@@ -1,0 +1,37 @@
+#body{
+    font-family: sans-serif;
+}
+h1{
+    background-color: black;
+    color: white;
+}
+#maindiv{
+    background-color: indianred;
+    height: 100%;
+    width: 70%;
+    margin: auto;
+    padding: 10px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    border-bottom: 0px;
+}
+#footer{
+    width:70%;
+    background-color: lightslategrey;
+    color: white;
+    padding: 10px;
+    margin:auto;
+}
+
+input{
+    width:300px;
+    height:20px;
+}
+
+#playlist-button{
+    height: 25px;
+}
+
+#video-id{
+    width:100%;
+}
