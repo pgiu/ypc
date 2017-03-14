@@ -1,6 +1,9 @@
 // Define some variables used to remember state.
 var playlistId, channelId;
 
+//
+var language = "en_US";
+
 // After the API loads, call a function to enable the playlist creation form.
 function handleAPILoaded() {
     enableForm();
