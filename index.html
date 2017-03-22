@@ -4,27 +4,44 @@
     <head>
         <title>Youtube Playlist Creator</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
     </head>
+
     <body id="body">
+        <script src="strings.js"></script>
+
+        <div id="header-container">
+            <div id="header">
+                <h1>YouTube Playlist Creator</h1>
+            </div>
+            <div id="image">
+                <img src="youtube_icon.png" height="80">
+            </div>
+        </div>
+
         <div id="maindiv">
-            <h1>YouTube Playlist Creator</h1>
-            <p>Esta es una herramienta que permite crear en forma automatizada una playlist en YouTube en base a una lista de links.</p>
-            <div id="login-container" class="pre-auth">Para poder crear la playlist es necesario darle permisos a esta aplicación.
-                Hacé <a href="#" id="login-link">click aquí</a> para autorizar.
+
+            <p><script>get_i18n('description', lang)</script></p>
+
+            <div id="login-container" class="pre-auth"><script>get_i18n('auth_problem',lang)</script><br>
+                <a href="#" id="login-link"></a>
             </div>
             <div id="buttons">
-                <h2>1. Nombre de la nueva lista: </h2>
-                <input id="playlist-name" placeholder="Nombre la nueva lista (ej: Semana 10)" type="text"/>
-                <button id="playlist-button" disabled onclick="createPlaylist()">Crear una nueva playlist</button>
+                <h2>1. <script>get_i18n('playlist_name',lang) </script></h2>
+                <input id="playlist-name" type="text"/>
+
+                <button id="playlist-button" disabled onclick="createPlaylist()"><script>get_i18n('btn_create',lang)</script></button>
                 <br>
                 <br>
-                <label>ID de la nueva playlist: <input id="playlist-id" value='' type="text" disabled/></label>
+
+                <label> <script>get_i18n('playlist_id',lang) </script> <input id="playlist-id" value='' type="text" disabled/></label>
                 <br>
-                <h2>2. URLs de los videos (uno por línea): </h2><textarea id="video-id" value='GZG9G5txtaE' type="text" rows="10" placeholder="https://www.youtube.com/watch?v=Gr61Zt4jBZo"></textarea>
+                <h2> 2. <script>get_i18n('video_urls',lang) </script></h2><textarea id="video-id" value='GZG9G5txtaE' type="text" rows="10" placeholder="https://www.youtube.com/watch?v=Gr61Zt4jBZo"></textarea>
                 <br>
-                <button onclick="addVideoToPlaylist()">Agregar todos los videos a la lista</button>
+                <button onclick="addVideoToPlaylist()"> <script>get_i18n('btn_add',lang) </script></button>
             </div>
-            <h3>3. Videos agregados a <span id="playlist-title"></span></h3>
+            <h3>3.  <script>get_i18n('videos_added_to',lang) </script> <span id="playlist-title"></span></h3>
             <p id="playlist-description"></p>
             <div id="playlist-container">
                 <ol id="addedVideos"></ol>
@@ -34,7 +51,7 @@
             </div>
             <br>
             <br>
-            <button onclick="deletePlaylist()">Borrar playlist</button>
+            <button onclick="deletePlaylist()"> <script>get_i18n('btn_delete',lang) </script></button>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
             <script src="oauth2_client_id.js"></script>
             <script src="auth.js"></script>
@@ -43,8 +60,8 @@
 
         </div>
         <div id="footer">
-            <p>Creado por Pablo Giudice 2017</p>
-            <p><a href="https://github.com/pgiu/pyc">Ver código fuente</a></p>
+            <p> <script>get_i18n('created_by',lang) </script><br>
+            <a href="https://github.com/pgiu/ypc" target="_blank"> <script>get_i18n('view_sourcecode',lang) </script></a></p>
         </div>
     </body>
 </html>
