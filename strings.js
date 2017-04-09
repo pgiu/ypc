@@ -54,8 +54,8 @@ var article = {
         es_AR: "Nombre la nueva lista (ej: Semana 10)"
     },
     playlist_id : {
-        en_US: "ID of the new playlist",
-        es_AR: "ID de la nueva playlist"
+        en_US: "URL of the new playlist",
+        es_AR: "URL de la nueva playlist"
     },
     created_by: {
         en_US: "Created by Pablo Giudice - 2017",

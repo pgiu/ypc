@@ -14,6 +14,19 @@ function enableForm() {
     $('#playlist-button').attr('disabled', false);
 }
 
+// Create the module
+var app = angular.module('usersApp', []);
+
+// Attach the controller
+app.controller('usersCtrl', function($scope, $http) {
+
+    $scope.createPlaylist = function(name){
+
+    console.log("Creating playlist with name="+name);
+
+    }
+});
+
 // Create a private playlist.
 function createPlaylist() {
     var name = $('#playlist-name').val()
@@ -119,5 +132,6 @@ function deletePlaylist(){
             alert('No se pudo eliminar la playlist');
         }
     });
-
 }
+
+

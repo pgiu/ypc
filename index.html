@@ -3,65 +3,84 @@
     <meta charset="utf-8">
     <head>
         <title>Youtube Playlist Creator</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
+
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- This website's Stylesheet-->
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <!-- Angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
     </head>
 
     <body id="body">
-        <script src="strings.js"></script>
+        <div ng-app="usersApp" ng-controller="usersCtrl">
 
-        <div id="header-container">
-            <div id="header">
-                <h1>YouTube Playlist Creator</h1>
+            <script src="strings.js"></script>
+
+            <div id="header-container">
+                <div id="header">
+                    <h1>YouTube Playlist Creator</h1>
+                </div>
+                <div id="image">
+                    <img src="youtube_icon.png" height="80">
+                </div>
             </div>
-            <div id="image">
-                <img src="youtube_icon.png" height="80">
-            </div>
-        </div>
 
-        <div id="maindiv">
+            <div id="maindiv">
 
-            <p><script>get_i18n('description', lang)</script></p>
+                <p><script>get_i18n('description', lang)</script></p>
 
-            <div id="login-container" class="pre-auth"><script>get_i18n('auth_problem',lang)</script><br>
-                <a href="#" id="login-link"></a>
-            </div>
-            <div id="buttons">
-                <h2>1. <script>get_i18n('playlist_name',lang) </script></h2>
-                <input id="playlist-name" type="text"/>
+                <div id="login-container" class="pre-auth"><script>get_i18n('auth_problem',lang)</script><br>
+                    <a href="#" id="login-link"></a>
+                </div>
+                <div id="buttons">
+                    <h2>1. <script>get_i18n('playlist_name',lang) </script></h2>
+                    <input id="playlist-name" type="text" ng-model="playlist_name"/>
 
-                <button id="playlist-button" disabled onclick="createPlaylist()"><script>get_i18n('btn_create',lang)</script></button>
+                    <button id="playlist-button" disabled ng-click="createPlaylist(playlist_name)"><script>get_i18n('btn_create',lang)</script></button>
+                    <br>
+                    {{playlist_name}}
+                    <br>
+                    <br>
+
+                    <label>
+                        <script>get_i18n('playlist_id',lang)</script>
+                        <span>URL:<a href="https://www.youtube.com/playlist?list=">https://www.youtube.com/playlist?list={{playlist_id}}</a></span>
+                    </label>
+                    <br>
+                    <br>
+                    <h2> 2. <script>get_i18n('video_urls',lang) </script></h2><textarea id="video-id" value='GZG9G5txtaE' type="text" rows="10" placeholder="https://www.youtube.com/watch?v=Gr61Zt4jBZo"></textarea>
+                    <br>
+                    <button onclick="addVideoToPlaylist()"> <script>get_i18n('btn_add',lang) </script></button>
+                </div>
+                <h3>3.  <script>get_i18n('videos_added_to',lang) </script> <span id="playlist-title"></span></h3>
+                <p id="playlist-description"></p>
+                <div id="playlist-container">
+                    <ol id="addedVideos"></ol>
+                    <br>
+                    <hr>
+                    <span id="status"></span>
+                </div>
                 <br>
                 <br>
+                <button onclick="deletePlaylist()"> <script>get_i18n('btn_delete',lang) </script></button>
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+                <script src="oauth2_client_id.js"></script>
+                <script src="auth.js"></script>
+                <script src="playlist_updates.js"></script>
+                <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
 
-                <label> <script>get_i18n('playlist_id',lang) </script> <input id="playlist-id" value='' type="text" disabled/></label>
-                <br>
-                <h2> 2. <script>get_i18n('video_urls',lang) </script></h2><textarea id="video-id" value='GZG9G5txtaE' type="text" rows="10" placeholder="https://www.youtube.com/watch?v=Gr61Zt4jBZo"></textarea>
-                <br>
-                <button onclick="addVideoToPlaylist()"> <script>get_i18n('btn_add',lang) </script></button>
             </div>
-            <h3>3.  <script>get_i18n('videos_added_to',lang) </script> <span id="playlist-title"></span></h3>
-            <p id="playlist-description"></p>
-            <div id="playlist-container">
-                <ol id="addedVideos"></ol>
-                <br>
-                <hr>
-                <span id="status"></span>
+            <div id="footer">
+                <p> <script>get_i18n('created_by',lang) </script><br>
+                    <a href="https://github.com/pgiu/ypc" target="_blank"> <script>get_i18n('view_sourcecode',lang) </script></a></p>
             </div>
-            <br>
-            <br>
-            <button onclick="deletePlaylist()"> <script>get_i18n('btn_delete',lang) </script></button>
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-            <script src="oauth2_client_id.js"></script>
-            <script src="auth.js"></script>
-            <script src="playlist_updates.js"></script>
-            <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
-
-        </div>
-        <div id="footer">
-            <p> <script>get_i18n('created_by',lang) </script><br>
-            <a href="https://github.com/pgiu/ypc" target="_blank"> <script>get_i18n('view_sourcecode',lang) </script></a></p>
         </div>
     </body>
 </html>
